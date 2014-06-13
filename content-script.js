@@ -19,7 +19,7 @@ function getPlurkLargeImage(url) {
 
 function getLargeImage(raw, href, alt) {
 	if((raw.indexOf("statics.plurk.com") != -1 || raw.indexOf("static.plurk.com") != -1) && raw.indexOf(loading_url) == -1) return "";
-	if(raw.indexOf("banana.plurk.com") != -1 || raw.indexOf("emos.plurk.com") != -1 || raw.indexOf("/static/colormod") != -1 || raw.indexOf("/static/emoticon_manager") != -1 || raw.indexOf("/static/icons") != -1 || raw.indexOf("/static/top_bar") != -1 || raw.indexOf("chrome-extension:") != -1) return "";
+	if(raw.indexOf("banana.plurk.com") != -1 || raw.indexOf("emos.plurk.com") != -1 || raw.indexOf("plurk.com/static/colormod") != -1 || raw.indexOf("plurk.com/static/emoticon_manager") != -1 || raw.indexOf("plurk.com/static/icons") != -1 || raw.indexOf("plurk.com/static/top_bar") != -1 || raw.indexOf("plurk.com/static/logo") != -1 || raw.indexOf("chrome-extension:") != -1) return "";
 	if(raw.indexOf(loading_url) != -1) raw = href;
 	if(raw.indexOf("avatars.plurk.com") != -1 || raw.indexOf("/static/creatures") != -1) {
 		raw = raw.replace("medium", "big");
@@ -287,7 +287,8 @@ function _showPhoto(posX, imgurl) {
 		src: imgurl
 	}).css({
 		"max-height": (win.height() - 60) + "px",
-		"max-width": (win.width() / 2 - 20) + "px"
+		"max-width": (Math.round(win.width() / 2) - 20) + "px",
+		"margin-bottom": "-4px"
 	}).bind("error", function() {
 		errorPhoto(posX, $(this));
 	})).show();
@@ -303,7 +304,7 @@ var hoverzoom_div = $("<div/>").attr("id", "hoverzoom-left").css({
 	'top': "30px",
 	'left': "10px",
 	'z-index': 99999,
-	'border': "solid 3px #000000",
+	'border': "solid 2px #000000",
 	'background': "white",
 }).hide().bind("mouseover", hidePhoto);
 $('body').append(hoverzoom_div, hoverzoom_div.clone(true).attr("id", "hoverzoom-right").css({
