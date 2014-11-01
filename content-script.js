@@ -19,7 +19,7 @@ function getPlurkLargeImage(url) {
 
 function getLargeImage(raw, href, alt) {
 	if((raw.indexOf("statics.plurk.com") != -1 || raw.indexOf("static.plurk.com") != -1) && raw.indexOf(loading_url) == -1) return "";
-	if(raw.indexOf("banana.plurk.com") != -1 || raw.indexOf("emos.plurk.com") != -1 || raw.indexOf("s.plurk.com") != -1 || (raw.indexOf("plurk.com/static/") != -1 && raw.indexOf("plurk.com/static/creatures") == -1) || raw.indexOf("chrome-extension:") != -1) return "";
+	if(raw.indexOf("banana.plurk.com") != -1 || raw.indexOf("emos.plurk.com") != -1 || raw.indexOf("//s.plurk.com") != -1 || (raw.indexOf("plurk.com/static/") != -1 && raw.indexOf("plurk.com/static/creatures") == -1) || raw.indexOf("chrome-extension:") != -1) return "";
 	if(raw.indexOf(loading_url) != -1) raw = href;
 	if(raw.indexOf("avatars.plurk.com") != -1 || raw.indexOf("plurk.com/static/creatures") != -1) {
 		raw = raw.replace("medium", "big");
