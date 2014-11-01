@@ -19,9 +19,9 @@ function getPlurkLargeImage(url) {
 
 function getLargeImage(raw, href, alt) {
 	if((raw.indexOf("statics.plurk.com") != -1 || raw.indexOf("static.plurk.com") != -1) && raw.indexOf(loading_url) == -1) return "";
-	if(raw.indexOf("banana.plurk.com") != -1 || raw.indexOf("emos.plurk.com") != -1 || raw.indexOf("plurk.com/static/colormod") != -1 || raw.indexOf("plurk.com/static/emoticon_manager") != -1 || raw.indexOf("plurk.com/static/icons") != -1 || raw.indexOf("plurk.com/static/top_bar") != -1 || raw.indexOf("plurk.com/static/logo") != -1 || raw.indexOf("chrome-extension:") != -1) return "";
+	if(raw.indexOf("banana.plurk.com") != -1 || raw.indexOf("emos.plurk.com") != -1 || raw.indexOf("s.plurk.com") != -1 || (raw.indexOf("plurk.com/static/") != -1 && raw.indexOf("plurk.com/static/creatures") == -1) || raw.indexOf("chrome-extension:") != -1) return "";
 	if(raw.indexOf(loading_url) != -1) raw = href;
-	if(raw.indexOf("avatars.plurk.com") != -1 || raw.indexOf("/static/creatures") != -1) {
+	if(raw.indexOf("avatars.plurk.com") != -1 || raw.indexOf("plurk.com/static/creatures") != -1) {
 		raw = raw.replace("medium", "big");
 		raw = raw.replace("small", "big");
 		raw = raw.replace("gif", "jpg");
