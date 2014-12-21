@@ -320,3 +320,16 @@ if(location.href.match(/http:\/\/www.plurk.com\/(\w+)/)[1] == "m") {
 	}).on("click mouseout", "a.pictureservices", hidePhoto);
 }
 
+$(document).on('keydown', function(event) {
+	if (event.ctrlKey && event.keyCode == 83) { // ctrl + s
+		var img = $("#hoverzoom-left:not(:hidden), #hoverzoom-right:not(:hidden)").find("img");
+		if (img.length > 0) {
+			event.preventDefault();
+			var a = $("<a/>", {
+				href: img.attr("src")
+			}).get(0);
+			a.setAttribute("download", "");
+			a.dispatchEvent(new MouseEvent("click"));
+		}
+	}
+});
