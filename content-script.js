@@ -1,5 +1,6 @@
 var loading_url = "//statics.plurk.com/7f5c4282d2e9accfdae99cc6abb6c9bb.gif",
-	pictureservices_img = "//statics.plurk.com/85b41d35700d663e1dec87bc78dbbf6d.gif";
+	pictureservices_img = "//statics.plurk.com/85b41d35700d663e1dec87bc78dbbf6d.gif",
+	isMac = navigator.platform.match(/Mac/i);
 
 function isImage(href) {
 	href = (href + '').toLowerCase();
@@ -321,7 +322,7 @@ if(location.href.match(/http:\/\/www.plurk.com\/(\w+)/)[1] == "m") {
 }
 
 $(document).on('keydown', function(event) {
-	if (event.ctrlKey && event.keyCode == 83) { // ctrl + s
+	if (((!isMac && event.ctrlKey) || (isMac && event.metaKey)) && event.keyCode == 83) { // ctrl + s / mac: command + s
 		var img = $("#hoverzoom-left:not(:hidden), #hoverzoom-right:not(:hidden)").find("img");
 		if (img.length > 0) {
 			event.preventDefault();
