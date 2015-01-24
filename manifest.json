@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Plurk-HoverZoom",
-    "version": "2.8",
+    "version": "2.8.1",
     "description": "Show super-sized avatars and photos when you run your cursor over the thumbnail.",
     "icons": {
         "128": "128.png",

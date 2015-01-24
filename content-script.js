@@ -315,7 +315,7 @@ $('body').append(hoverzoom_div, hoverzoom_div.clone(true).attr("id", "hoverzoom-
 
 $(document).add("#timeline_holder").add("#form_holder").on("mouseover", "img", showPhoto).on("click mouseout", "img", hidePhoto);
 
-if(location.href.match(/http:\/\/www.plurk.com\/(\w+)/)[1] == "m") {
+if(location.href.match(/www.plurk.com\/(\w+)/)[1] == "m") {
 	$(document).on("mouseover", "a.pictureservices", function(e){
 		return showPhoto.call($(this).find("img").get(0), e);
 	}).on("click mouseout", "a.pictureservices", hidePhoto);
