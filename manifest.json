@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Plurk-HoverZoom",
-    "version": "2.7.1",
+    "version": "2.8",
     "description": "Show super-sized avatars and photos when you run your cursor over the thumbnail.",
     "icons": {
         "128": "128.png",
@@ -10,7 +10,8 @@
     "content_scripts": [
         {
             "matches": [
-                "http://www.plurk.com/*"
+                "http://www.plurk.com/*",
+                "https://www.plurk.com/*"
             ],
             "js": [
                 "jquery-2.0.2.min.js",
@@ -19,7 +20,8 @@
         }
     ],
     "permissions": [
-        "http://www.plurk.com/"
+        "http://www.plurk.com/",
+        "https://www.plurk.com/"
     ],
     "web_accessible_resources": [
         "jquery-2.0.2.js",
