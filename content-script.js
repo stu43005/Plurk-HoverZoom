@@ -199,6 +199,11 @@ function getLargeImage(raw, href, alt) {
 	if(raw.indexOf("instagram.com") != -1 || raw.indexOf("instagram.com") != -1) {
 		return alt;
 	}
+	//Imgur
+	if (raw.match(/imgur\.com\/\w+t\./) && href.match(/imgur\.com\/\w+\.?/)) {
+		return raw.replace(/imgur\.com\/\w+t\./, (href + ".").match(/imgur\.com\/\w+\./)[0]);
+	}
+	//Plruk
 	if(href.indexOf("images.plurk.com") != -1) {
 		return getPlurkLargeImage(href);
 	}
