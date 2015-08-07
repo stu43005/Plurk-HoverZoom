@@ -200,8 +200,12 @@ function getLargeImage(raw, href, alt) {
 		return alt;
 	}
 	//Imgur
-	if (raw.match(/imgur\.com\/\w+t\./) && href.match(/imgur\.com\/\w+\.?/)) {
-		return raw.replace(/imgur\.com\/\w+t\./, (href + ".").match(/imgur\.com\/\w+\./)[0]);
+	if (raw.indexOf("imgur.com") != -1) {
+		var $ = raw.match(/(?:[im]\.([^.]+\.)?)?(imgur\.com)\/([^\W_]{5}(?:[^\W_]{2})?)[sbtmlh]?\.(jpe?g|png|gif|mp4|webm).*/);
+		if ($[4] == 'mp4' || $[4] == 'webm') $[4]='gif';
+		var l = ($[2][0] == 'i' ? '//' : '') + 'i.' + ($[1] || '') + $[2] + '/' + $[3],
+			x = '.' + ($[4] || 'jpg');
+		return $[4][0] == 'g' ? l + '.gif' : l + x;
 	}
 	//Plruk
 	if(href.indexOf("images.plurk.com") != -1) {
@@ -265,9 +269,9 @@ function showPhoto() {
 		href = img.parent("a").attr("href") + '',
 		alt = img.attr("alt") + '';
 	if(src.indexOf(pictureservices_img) != -1) src = href;
-	if(!imgurl || imgurl == undefined) {
+	if(!imgurl || imgurl === undefined) {
 		imgurl = getLargeImage(src, href, alt);
-		if(imgurl == "" || imgurl == undefined) return true;
+		if(imgurl === "" || imgurl === undefined) return true;
 		img.data("hoverzoom-src", imgurl);
 	} else if(imgurl == "src") {
 		if(isImage(alt)) imgurl = alt;
