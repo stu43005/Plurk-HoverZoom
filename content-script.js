@@ -201,11 +201,11 @@ function getLargeImage(raw, href, alt) {
 	}
 	//Imgur
 	if (raw.indexOf("imgur.com") != -1) {
-		var $ = raw.match(/(?:[im]\.([^.]+\.)?)?(imgur\.com)\/([^\W_]{5}(?:[^\W_]{2})?)[sbtmlh]?\.(jpe?g|png|gif|mp4|webm).*/);
-		if ($[4] == 'mp4' || $[4] == 'webm') $[4]='gif';
-		var l = ($[2][0] == 'i' ? '//' : '') + 'i.' + ($[1] || '') + $[2] + '/' + $[3],
-			x = '.' + ($[4] || 'jpg');
-		return $[4][0] == 'g' ? l + '.gif' : l + x;
+		var imgur = raw.match(/(?:[im]\.([^.]+\.)?)?(imgur\.com)\/([^\W_]{5}(?:[^\W_]{2})?)[sbtmlh]?\.(jpe?g|png|gif|mp4|webm).*/);
+		if (imgur[4] == 'mp4' || imgur[4] == 'webm') imgur[4]='gif';
+		var l = (imgur[2][0] == 'i' ? '//' : '') + 'i.' + (imgur[1] || '') + imgur[2] + '/' + imgur[3],
+			x = '.' + (imgur[4] || 'jpg');
+		return imgur[4][0] == 'g' ? l + '.gif' : l + x;
 	}
 	//Plruk
 	if(href.indexOf("images.plurk.com") != -1) {
