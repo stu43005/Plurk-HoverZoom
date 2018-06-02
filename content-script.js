@@ -46,7 +46,7 @@ function getLargeImage(raw, href, alt) {
 		return raw;
 	}
 	//Facebook
-	if((raw.indexOf("external.ak.fbcdn.net") != -1 && raw.indexOf("url=") != -1) || (raw.indexOf("platform.ak.fbcdn.net") != -1 && raw.indexOf("src=") != -1)) {
+	if((raw.indexOf("external.ak.fbcdn.net") != -1 && raw.indexOf("url=") != -1) || (raw.indexOf("external.xx.fbcdn.net") != -1 && raw.indexOf("url=") != -1) || (raw.indexOf("platform.ak.fbcdn.net") != -1 && raw.indexOf("src=") != -1)) {
 		if(raw.indexOf("url=") != -1) raw = raw.slice(raw.indexOf("url=") + 4, raw.length);
 		else raw = raw.slice(raw.indexOf("src=") + 4, raw.length);
 		raw = urldecode(raw);
@@ -67,28 +67,36 @@ function getLargeImage(raw, href, alt) {
 	if(href.indexOf("youtube.com/watch") != -1) return href.replace(/^.*v=([\w-]+).*$/, 'http://i1.ytimg.com/vi/$1/0.jpg');
 	if(href.indexOf("youtu.be") != -1) return href.replace(/^.*youtu.be\/([\w-]+).*$/, 'http://i1.ytimg.com/vi/$1/0.jpg');
 	//Flickr
-	if(raw.match(/static\.?flickr\.com/) && raw.indexOf("_b.") == -1 && raw.indexOf("_h.") == -1 && raw.indexOf("_k.") == -1 && raw.indexOf("_o.") == -1) {
+	if(raw.match(/static\.?flickr\.com/)) {
+		// ignore bigger pic
+		if (raw.match(/_[bhko](_d)?\./)) {
+			return raw;
+		}
+
+		// chech pic large of area
 		var width = ($(window).width() / 2 - 20), height = ($(window).height() - 60);
 		if (raw.indexOf("_k.") != -1 && width < 2048 && height < 1530 ||
 			raw.indexOf("_h.") != -1 && width < 1600 && height < 1195 ||
 			raw.indexOf("_b.") != -1 && width < 1024 && height < 765 ||
 			raw.indexOf("_c.") != -1 && width < 800 && height < 598 ||
 			raw.indexOf("_z.") != -1 && width < 640 && height < 478 ||
-			raw.indexOf("_d.") != -1 && width < 500 && height < 375)
+			raw.indexOf("_d.") != -1 && width < 500 && height < 375) {
 			return raw;
-		raw = raw.replace("_s.", "."); //正方形 75 (75 x 75)
-		raw = raw.replace("_q.", "."); //正方形 150 (150 x 150)
-		raw = raw.replace("_t.", "."); //縮圖 (100 x 75)
-		raw = raw.replace("_m.", "."); //小型 240 (240 x 180)
-		raw = raw.replace("_n.", "."); //小型 320 (320 x 239)
-		raw = raw.replace("_d.", "."); //中型 500 (500 x 375)
-		raw = raw.replace("_z.", "."); //中型 640 (640 x 478)
-		raw = raw.replace("_c.", "."); //中型 800 (800 x 598)
-		raw = raw.replace("_b.", "."); //大型 1024 (1024 x 765)
-		raw = raw.replace("_h.", "."); //大型 1600 (1600 x 1195)
-		raw = raw.replace("_k.", "."); //大型 2048 (2048 x 1530)
-		raw = raw.slice(0, raw.lastIndexOf(".")) + "_b" + raw.slice(raw.lastIndexOf("."), raw.length);
-		return raw;
+		}
+
+		return raw.replace(/_[sqtmndzcb](_d)?\./, "_b.");
+		// s: 正方形 75 (75 x 75)
+		// q: 正方形 150 (150 x 150)
+		// t: 縮圖 (100 x 75)
+		// m: 小型 240 (240 x 180)
+		// n: 小型 320 (320 x 239)
+		// d: 中型 500 (500 x 375)
+		// z: 中型 640 (640 x 478)
+		// c: 中型 800 (800 x 598)
+		// b: 大型 1024 (1024 x 765)
+		// h: 大型 1600 (1600 x 1195)
+		// k: 大型 2048 (2048 x 1530)
+		// o: 原始
 	}
 	//Vimeo
 	if(raw.indexOf("b.vimeocdn.com") != -1) {
@@ -200,8 +208,9 @@ function getLargeImage(raw, href, alt) {
 		return alt;
 	}
 	//Imgur
-	if (raw.indexOf("imgur.com") != -1) {
+	if (raw.indexOf("imgur.com") != -1 && raw.indexOf("favicon.ico") == -1) {
 		var imgur = raw.match(/(?:[im]\.([^.]+\.)?)?(imgur\.com)\/([^\W_]{5}(?:[^\W_]{2})?)[sbtmlh]?\.(jpe?g|png|gif|mp4|webm).*/);
+		if (imgur === null) return raw;
 		if (imgur[4] == 'mp4' || imgur[4] == 'webm') imgur[4]='gif';
 		var l = (imgur[2][0] == 'i' ? '//' : '') + 'i.' + (imgur[1] || '') + imgur[2] + '/' + imgur[3],
 			x = '.' + (imgur[4] || 'jpg');
